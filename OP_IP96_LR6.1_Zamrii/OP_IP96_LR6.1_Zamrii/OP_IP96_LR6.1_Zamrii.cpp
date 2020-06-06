@@ -1,5 +1,7 @@
 ﻿#include "Header.h"
+
 void Menu();
+void Count(SingleFunction* function);
 
 int main() {
 	setlocale(LC_ALL, "rus");
@@ -18,6 +20,7 @@ void Menu() {
 	cout << "Введите коефициент c: "; cin >> c;
 	system("cls");
 	char q;
+	SingleFunction* function;
 	while (T) { // Работа меню
 		cout << "Нажмите \"0\" что бы выйти." << endl << "Нажмите \"1\", что бы определить значение константы." << endl << "Нажмите \"2\", что бы определить значение линейного уравнения." << endl << "Нажмите \"3\", что бы определить значение параболического уравнения." << endl << "Нажмите \"*\", что бы изменить коефициенты." << endl;
 		q = _getch();
@@ -32,31 +35,31 @@ void Menu() {
 			system("cls");
 		}
 		if (q == '1') {
-			float x;
-			cout << "Введите значение аргумента х: "; cin >> x;
-			system("cls");
-			Const constant(c);
-			cout << "Значение константы: " << constant.CountValueOfFunction(x);
+			function = new Const(c);
+			Count(function);
 			_getch();
+			delete function;
 			system("cls");
 		}
 		if (q == '2') {
-			float x;
-			cout << "Введите значение аргумента х: "; cin >> x;
-			system("cls");
-			LinearFunction line(b, c);
-			cout << "Значение функции: " << line.CountValueOfFunction(x);
+			function = new LinearFunction(b, c);
+			Count(function);
 			_getch();
+			delete function;
 			system("cls");
 		}
 		if (q == '3') {
-			float x;
-			cout << "Введите значение аргумента х: "; cin >> x;
-			system("cls");
-			Parabola parabola(a, b, c);
-			cout << "Значение функции: " << parabola.CountValueOfFunction(x);
+			function = new Parabola(a, b, c);
+			Count(function);
 			_getch();
+			delete function;
 			system("cls");
 		}
 	}
+}
+
+void Count(SingleFunction* function) {
+	float x;
+	cout << "Введите значение аргумента х: "; cin >> x;
+	cout << "Значение функции: " << function->CountValueOfFunction(x);
 }
